@@ -1,1 +1,321 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Unlock</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #111827, #1e3a8a);
+      color: white;
+      padding: 20px;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      color: #d1d5db;
+      margin-bottom: 25px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+      background: #ef4444;
+      color: white;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      transform: none;
+    }
+
+    .green {
+      background: #22c55e;
+    }
+
+    .blue {
+      background: #3b82f6;
+    }
+
+    .timer {
+      font-size: 40px;
+      font-weight: bold;
+      margin: 25px 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .message {
+      margin-top: 15px;
+      min-height: 22px;
+      color: #fde68a;
+    }
+
+    .success {
+      color: #86efac;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <!-- STEP 1 -->
+    <div id="step1">
+      <h1>🔐 Unlock Access</h1>
+      <p class="subtitle">
+        First, subscribe to our YouTube channel.
+      </p>
+
+      <button onclick="openYoutube()">
+        SUBSCRIBE ON YOUTUBE
+      </button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" class="hidden">
+      <h1>✅ YouTube</h1>
+      <p class="subtitle">
+        After subscribing, come back and confirm below.
+      </p>
+
+      <button class="green" onclick="startFirstTimer()">
+        I'VE SUBSCRIBED
+      </button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="step3" class="hidden">
+      <h1>⏳ Please Wait</h1>
+      <p class="subtitle">
+        Your unlock button will appear after the timer.
+      </p>
+
+      <div class="timer" id="timer1">15</div>
+
+      <button id="unlockButton" class="blue" disabled onclick="startSecondTimer()">
+        UNLOCK KEY
+      </button>
+    </div>
+
+    <!-- STEP 4 -->
+    <div id="step4" class="hidden">
+      <h1>🔓 Unlocking</h1>
+      <p class="subtitle">
+        Please wait a few more seconds.
+      </p>
+
+      <div class="timer" id="timer2">10</div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div id="step5" class="hidden">
+      <h1>🔑 Login</h1>
+      <p class="subtitle">
+        Enter your username and password.
+      </p>
+
+      <input
+        type="text"
+        id="username"
+        placeholder="Username / Key"
+        autocomplete="off"
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        autocomplete="off"
+      >
+
+      <button class="green" onclick="login()">
+        LOGIN
+      </button>
+
+      <div id="message" class="message"></div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="success" class="hidden">
+      <h1>🎉 Success!</h1>
+      <p class="success">
+        Login successful. Access unlocked.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+
+    // Your YouTube channel
+    const youtubeURL =
+      "https://youtube.com/@rathore9-w9i?si=j1MtSCSOJFAtpapA";
+
+    // Demo credentials
+    const correctUsername = "AimAi-2_hwzw7z";
+    const correctPassword = "jqzhwv1w";
+
+
+    // STEP 1
+    function openYoutube() {
+      window.open(youtubeURL, "_blank");
+
+      // Show confirmation screen
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("step2").classList.remove("hidden");
+    }
+
+
+    // STEP 2 -> STEP 3
+    function startFirstTimer() {
+
+      document.getElementById("step2").classList.add("hidden");
+      document.getElementById("step3").classList.remove("hidden");
+
+      let time = 15;
+
+      const timer = document.getElementById("timer1");
+      const unlockButton = document.getElementById("unlockButton");
+
+      timer.textContent = time;
+
+      const interval = setInterval(() => {
+
+        time--;
+        timer.textContent = time;
+
+        if (time <= 0) {
+
+          clearInterval(interval);
+
+          timer.textContent = "✓";
+
+          unlockButton.disabled = false;
+          unlockButton.textContent = "UNLOCK KEY";
+
+        }
+
+      }, 1000);
+    }
+
+
+    // STEP 3 -> STEP 4
+    function startSecondTimer() {
+
+      document.getElementById("step3").classList.add("hidden");
+      document.getElementById("step4").classList.remove("hidden");
+
+      let time = 10;
+
+      const timer = document.getElementById("timer2");
+
+      timer.textContent = time;
+
+      const interval = setInterval(() => {
+
+        time--;
+        timer.textContent = time;
+
+        if (time <= 0) {
+
+          clearInterval(interval);
+
+          document.getElementById("step4").classList.add("hidden");
+          document.getElementById("step5").classList.remove("hidden");
+
+        }
+
+      }, 1000);
+    }
+
+
+    // STEP 5
+    function login() {
+
+      const username =
+        document.getElementById("username").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const message =
+        document.getElementById("message");
+
+
+      if (
+        username === correctUsername &&
+        password === correctPassword
+      ) {
+
+        document.getElementById("step5").classList.add("hidden");
+        document.getElementById("success").classList.remove("hidden");
+
+      } else {
+
+        message.textContent =
+          "❌ Invalid username or password.";
+
+      }
+    }
+
+  </script>
+
+</body>
+</html>
