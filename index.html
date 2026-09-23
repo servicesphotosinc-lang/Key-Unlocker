@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Unlock</title>
+  <title>Complete Task</title>
 
   <style>
     * {
@@ -18,21 +18,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #111827, #1e3a8a);
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
       color: white;
       padding: 20px;
     }
 
-    .container {
+    .box {
       width: 100%;
       max-width: 420px;
       background: rgba(255,255,255,0.1);
       backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 20px;
       padding: 30px 20px;
+      border-radius: 20px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
     }
 
     h1 {
@@ -40,37 +39,34 @@
     }
 
     .subtitle {
-      color: #d1d5db;
+      color: #cbd5e1;
       margin-bottom: 25px;
     }
 
     .task {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,.08);
+      padding: 22px;
       border-radius: 15px;
-      padding: 20px;
-      margin: 15px 0;
     }
 
     .task h2 {
-      font-size: 19px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .task p {
-      color: #d1d5db;
-      margin-bottom: 15px;
+      color: #cbd5e1;
       font-size: 14px;
+      margin-bottom: 18px;
     }
 
     button {
       width: 100%;
-      padding: 13px;
+      padding: 14px;
       border: none;
       border-radius: 10px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      transition: 0.2s;
     }
 
     .youtube {
@@ -83,40 +79,27 @@
       color: white;
     }
 
-    button:hover {
-      transform: scale(1.02);
-      opacity: 0.9;
-    }
-
-    .key-box {
+    .key {
       display: none;
       margin-top: 20px;
-      padding: 20px;
+      padding: 18px;
       background: #020617;
-      border: 1px solid #334155;
       border-radius: 12px;
       text-align: left;
+      border: 1px solid #334155;
     }
 
-    .key-box div {
+    .key p {
       margin: 10px 0;
-      word-break: break-all;
-    }
-
-    .key-box strong {
-      color: #60a5fa;
-    }
-
-    .copy-btn {
-      margin-top: 10px;
-      background: #2563eb;
       color: white;
     }
 
-    .success {
-      color: #4ade80;
-      font-size: 13px;
-      margin-top: 10px;
+    .key span {
+      color: #60a5fa;
+      word-break: break-all;
+    }
+
+    #unlockTask {
       display: none;
     }
   </style>
@@ -124,77 +107,84 @@
 
 <body>
 
-  <div class="container">
+  <div class="box">
 
-    <h1>🎯 Complete Tasks</h1>
-    <p class="subtitle">Complete the tasks to unlock your key.</p>
+    <h1>🎯 Complete Task</h1>
+    <p class="subtitle">Complete the task to unlock your key.</p>
 
-    <!-- TASK 1 -->
-    <div class="task">
+    <!-- FIRST TASK -->
+    <div class="task" id="subscribeTask">
+
       <h2>🔴 Subscribe My YouTube Channel</h2>
-      <p>Subscribe to my YouTube channel.</p>
 
-      <button class="youtube"
-        onclick="window.open('https://youtube.com/@rathore9-w9i?si=o8B2mqeLz9ILs_2K', '_blank')">
+      <p>
+        First subscribe to my YouTube channel.
+      </p>
+
+      <button class="youtube" onclick="openYouTube()">
         Subscribe Channel
       </button>
+
     </div>
 
-    <!-- TASK 2 -->
-    <div class="task">
-      <h2>🔐 Unlock Key</h2>
-      <p>Click below to reveal your key.</p>
 
-      <button class="unlock" onclick="unlockKey()">
+    <!-- SECOND TASK -->
+    <div class="task" id="unlockTask">
+
+      <h2>🔐 Unlock Key</h2>
+
+      <p>
+        You completed the first step. Now unlock your key.
+      </p>
+
+      <button class="unlock" onclick="showKey()">
         Unlock Key
       </button>
 
-      <div class="key-box" id="keyBox">
+      <div class="key" id="key">
 
-        <div>
-          <strong>Username:</strong><br>
-          <span id="username">AimAi-2_C7C86</span>
-        </div>
+        <p>
+          <b>Username:</b><br>
+          <span>AimAi-2_C7C86</span>
+        </p>
 
-        <div>
-          <strong>Password:</strong><br>
-          <span id="password">JG6g0f3Z</span>
-        </div>
-
-        <button class="copy-btn" onclick="copyKey()">
-          📋 Copy Username & Password
-        </button>
-
-        <p class="success" id="success">
-          ✓ Copied successfully!
+        <p>
+          <b>Password:</b><br>
+          <span>JG6g0f3Z</span>
         </p>
 
       </div>
+
     </div>
 
   </div>
 
+
   <script>
-    function unlockKey() {
-      document.getElementById("keyBox").style.display = "block";
+
+    function openYouTube() {
+
+      window.open(
+        "https://youtube.com/@rathore9-w9i?si=o8B2mqeLz9ILs_2K",
+        "_blank"
+      );
+
+      // Show Unlock Key after opening YouTube
+      setTimeout(function() {
+
+        document.getElementById("subscribeTask").style.display = "none";
+        document.getElementById("unlockTask").style.display = "block";
+
+      }, 1000);
     }
 
-    function copyKey() {
-      const username = document.getElementById("username").innerText;
-      const password = document.getElementById("password").innerText;
 
-      const text =
-        "Username: " + username +
-        "\nPassword: " + password;
+    function showKey() {
 
-      navigator.clipboard.writeText(text).then(() => {
-        document.getElementById("success").style.display = "block";
+      document.getElementById("key").style.display = "block";
 
-        setTimeout(() => {
-          document.getElementById("success").style.display = "none";
-        }, 2000);
-      });
     }
+
   </script>
 
 </body>
