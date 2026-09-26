@@ -2,90 +2,150 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
 
   <title>Task Unlock</title>
 
   <style>
+    /* =========================
+       RESET
+    ========================= */
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
     }
 
     body {
       min-height: 100vh;
+      min-height: 100dvh;
+
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+
       padding: 20px;
-      color: white;
+
       overflow-x: hidden;
 
+      color: #ffffff;
       background:
-        radial-gradient(circle at 20% 20%, #7c3aed55, transparent 35%),
-        radial-gradient(circle at 80% 80%, #06b6d455, transparent 35%),
-        linear-gradient(135deg, #020617, #0f172a, #111827);
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(124, 58, 237, 0.45),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 85% 85%,
+          rgba(6, 182, 212, 0.35),
+          transparent 35%
+        ),
+        linear-gradient(
+          135deg,
+          #020617 0%,
+          #0f172a 50%,
+          #111827 100%
+        );
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
     }
+
+    /* =========================
+       BACKGROUND EFFECT
+    ========================= */
 
     body::before,
     body::after {
       content: "";
       position: fixed;
-      width: 280px;
-      height: 280px;
+
+      width: 250px;
+      height: 250px;
+
       border-radius: 50%;
+
       filter: blur(90px);
-      z-index: -1;
-      animation: float 7s infinite alternate ease-in-out;
+
+      pointer-events: none;
+
+      z-index: 0;
+
+      animation: floating 7s ease-in-out infinite alternate;
     }
 
     body::before {
       background: #7c3aed;
-      top: -80px;
-      left: -80px;
+      top: -100px;
+      left: -100px;
     }
 
     body::after {
       background: #06b6d4;
+      right: -100px;
       bottom: -100px;
-      right: -80px;
+
       animation-delay: 2s;
     }
 
-    @keyframes float {
+    @keyframes floating {
       from {
         transform: translate(0, 0);
       }
 
       to {
-        transform: translate(50px, 40px);
+        transform: translate(40px, 30px);
       }
     }
 
+    /* =========================
+       MAIN CARD
+    ========================= */
+
     .container {
+      position: relative;
+      z-index: 1;
+
       width: 100%;
       max-width: 440px;
-      padding: 32px 24px;
 
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
+      margin: 0 auto;
+
+      padding: 30px 22px;
+
+      border-radius: 26px;
+
+      background: rgba(255, 255, 255, 0.08);
+
+      border: 1px solid rgba(255, 255, 255, 0.15);
+
       backdrop-filter: blur(20px);
-
-      border-radius: 28px;
+      -webkit-backdrop-filter: blur(20px);
 
       box-shadow:
-        0 30px 80px rgba(0,0,0,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.1);
+        0 30px 80px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 
-      animation: appear 0.8s ease;
+      animation: appear 0.6s ease;
     }
 
     @keyframes appear {
       from {
         opacity: 0;
-        transform: translateY(30px) scale(.95);
+        transform: translateY(25px) scale(0.97);
       }
 
       to {
@@ -94,10 +154,15 @@
       }
     }
 
+    /* =========================
+       LOGO
+    ========================= */
+
     .logo {
-      width: 70px;
-      height: 70px;
-      margin: auto;
+      width: 72px;
+      height: 72px;
+
+      margin: 0 auto;
 
       display: flex;
       align-items: center;
@@ -105,18 +170,24 @@
 
       border-radius: 22px;
 
-      background: linear-gradient(135deg, #ef4444, #dc2626);
+      background:
+        linear-gradient(
+          135deg,
+          #ef4444,
+          #dc2626
+        );
 
-      font-size: 32px;
+      font-size: 34px;
 
       box-shadow:
-        0 10px 30px rgba(239,68,68,.4);
+        0 10px 30px rgba(239, 68, 68, 0.4);
 
-      animation: pulse 2s infinite;
+      animation: pulse 2s ease-in-out infinite;
     }
 
     @keyframes pulse {
-      0%, 100% {
+      0%,
+      100% {
         transform: scale(1);
       }
 
@@ -125,48 +196,70 @@
       }
     }
 
+    /* =========================
+       TITLE
+    ========================= */
+
     h1 {
-      text-align: center;
       margin-top: 18px;
-      font-size: 29px;
+
+      text-align: center;
+
+      font-size: 30px;
+      line-height: 1.2;
     }
 
     .subtitle {
+      margin-top: 9px;
+      margin-bottom: 25px;
+
       text-align: center;
+
       color: #aeb8ca;
-      margin-top: 8px;
-      margin-bottom: 28px;
+
       font-size: 14px;
+      line-height: 1.5;
     }
 
+    /* =========================
+       TASK BOX
+    ========================= */
+
     .task {
-      padding: 22px;
+      width: 100%;
+
+      padding: 20px;
+
       border-radius: 20px;
 
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255, 255, 255, 0.06);
+
+      border: 1px solid rgba(255, 255, 255, 0.1);
 
       margin-top: 15px;
 
-      transition: .3s;
+      transition: transform 0.25s ease;
     }
 
     .task:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,.2);
+      transform: translateY(-2px);
     }
 
     .task-title {
       display: flex;
       align-items: center;
+
       gap: 12px;
+
+      margin-bottom: 9px;
 
       font-size: 18px;
       font-weight: bold;
-      margin-bottom: 8px;
     }
 
     .icon {
+      flex-shrink: 0;
+
       width: 42px;
       height: 42px;
 
@@ -176,33 +269,44 @@
 
       border-radius: 12px;
 
-      background: rgba(255,255,255,.08);
+      background: rgba(255, 255, 255, 0.08);
 
       font-size: 20px;
     }
 
     .description {
-      color: #9ca9bd;
-      font-size: 13px;
-      line-height: 1.5;
-
       margin-bottom: 17px;
+
+      color: #9ca9bd;
+
+      font-size: 13px;
+      line-height: 1.55;
     }
+
+    /* =========================
+       BUTTONS
+    ========================= */
 
     button {
       width: 100%;
-      border: none;
-      cursor: pointer;
+
+      border: 0;
+      outline: 0;
 
       padding: 14px;
 
       border-radius: 13px;
 
-      color: white;
+      color: #ffffff;
+
       font-size: 15px;
       font-weight: bold;
 
-      transition: .25s;
+      cursor: pointer;
+
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
     }
 
     button:hover {
@@ -210,29 +314,49 @@
     }
 
     button:active {
-      transform: scale(.97);
+      transform: scale(0.98);
     }
 
     .youtube-btn {
-      background: linear-gradient(135deg, #ff0000, #dc2626);
+      background:
+        linear-gradient(
+          135deg,
+          #ff0000,
+          #dc2626
+        );
 
       box-shadow:
-        0 8px 25px rgba(239,68,68,.3);
+        0 8px 25px rgba(239, 68, 68, 0.3);
     }
 
     .unlock-btn {
-      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      background:
+        linear-gradient(
+          135deg,
+          #8b5cf6,
+          #6366f1
+        );
 
       box-shadow:
-        0 8px 25px rgba(99,102,241,.3);
+        0 8px 25px rgba(99, 102, 241, 0.3);
     }
+
+    /* =========================
+       HIDDEN UNLOCK TASK
+    ========================= */
 
     #unlockTask {
       display: none;
     }
 
+    /* =========================
+       CREDENTIALS
+    ========================= */
+
     .credentials {
       display: none;
+
+      width: 100%;
 
       margin-top: 18px;
 
@@ -240,17 +364,17 @@
 
       border-radius: 16px;
 
-      background: rgba(2,6,23,.75);
+      background: rgba(2, 6, 23, 0.75);
 
-      border: 1px solid rgba(139,92,246,.35);
+      border: 1px solid rgba(139, 92, 246, 0.35);
 
-      animation: reveal .5s ease;
+      animation: reveal 0.4s ease;
     }
 
     @keyframes reveal {
       from {
         opacity: 0;
-        transform: scale(.95);
+        transform: scale(0.96);
       }
 
       to {
@@ -260,6 +384,7 @@
     }
 
     .credential {
+      width: 100%;
       margin-bottom: 14px;
     }
 
@@ -268,18 +393,25 @@
     }
 
     .label {
-      color: #94a3b8;
-      font-size: 12px;
       margin-bottom: 6px;
+
+      color: #94a3b8;
+
+      font-size: 12px;
+      font-weight: bold;
     }
 
     .value-row {
       display: flex;
       align-items: center;
+
       gap: 8px;
+
+      width: 100%;
     }
 
     .value {
+      min-width: 0;
       flex: 1;
 
       padding: 11px;
@@ -294,10 +426,12 @@
 
       font-size: 14px;
 
-      word-break: break-all;
+      overflow-wrap: anywhere;
     }
 
     .copy-btn {
+      flex: 0 0 auto;
+
       width: auto;
 
       padding: 10px 13px;
@@ -327,39 +461,91 @@
       font-size: 13px;
     }
 
+    /* =========================
+       FOOTER
+    ========================= */
+
     .footer {
+      margin-top: 22px;
+
       text-align: center;
 
       color: #64748b;
 
       font-size: 11px;
+      line-height: 1.5;
+    }
 
-      margin-top: 24px;
+    /* =========================
+       SMALL MOBILE DEVICES
+    ========================= */
+
+    @media (max-width: 380px) {
+      body {
+        padding: 12px;
+      }
+
+      .container {
+        padding: 25px 16px;
+
+        border-radius: 22px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .task {
+        padding: 17px;
+      }
+
+      .value-row {
+        align-items: stretch;
+      }
+
+      .copy-btn {
+        padding: 10px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+  <main class="container">
 
+    <!-- LOGO -->
     <div class="logo">
       ▶
     </div>
 
+    <!-- TITLE -->
     <h1>Complete Task</h1>
 
     <p class="subtitle">
       Complete the task below to unlock your access key.
     </p>
 
-    <!-- STEP 1 -->
 
-    <div class="task" id="subscribeTask">
+    <!-- =========================
+         STEP 1
+    ========================== -->
+
+    <section
+      class="task"
+      id="subscribeTask"
+    >
 
       <div class="task-title">
-        <div class="icon">🔴</div>
-        Subscribe on YouTube
+
+        <div class="icon">
+          🔴
+        </div>
+
+        <span>
+          Subscribe on YouTube
+        </span>
+
       </div>
 
       <p class="description">
@@ -367,22 +553,35 @@
       </p>
 
       <button
+        type="button"
         class="youtube-btn"
-        onclick="openYouTube()">
-
+        onclick="openYouTube()"
+      >
         ▶ Subscribe My Channel
-
       </button>
 
-    </div>
+    </section>
 
-    <!-- STEP 2 -->
 
-    <div class="task" id="unlockTask">
+    <!-- =========================
+         STEP 2
+    ========================== -->
+
+    <section
+      class="task"
+      id="unlockTask"
+    >
 
       <div class="task-title">
-        <div class="icon">🔐</div>
-        Unlock Key
+
+        <div class="icon">
+          🔐
+        </div>
+
+        <span>
+          Unlock Key
+        </span>
+
       </div>
 
       <p class="description">
@@ -390,18 +589,24 @@
       </p>
 
       <button
+        type="button"
         class="unlock-btn"
-        onclick="unlockKey()">
-
+        onclick="unlockKey()"
+      >
         🔓 Unlock Key
-
       </button>
 
-      <!-- CREDENTIALS -->
 
-      <div class="credentials" id="credentials">
+      <!-- =========================
+           CREDENTIALS
+      ========================== -->
 
-        <!-- Username -->
+      <div
+        class="credentials"
+        id="credentials"
+      >
+
+        <!-- USERNAME -->
 
         <div class="credential">
 
@@ -413,25 +618,23 @@
 
             <div
               class="value"
-              id="username">
-
-              AimAi-2_8RRFm
-
-            </div>
+              id="username"
+            >AimAi-2_8RRFm</div>
 
             <button
+              type="button"
               class="copy-btn"
-              onclick="copyText('username', this)">
-
+              onclick="copyText('username', this)"
+            >
               Copy
-
             </button>
 
           </div>
 
         </div>
 
-        <!-- Password -->
+
+        <!-- PASSWORD -->
 
         <div class="credential">
 
@@ -443,43 +646,50 @@
 
             <div
               class="value"
-              id="password">
-
-              YOnFBf2W
-
-            </div>
+              id="password"
+            >YOnFBf2W</div>
 
             <button
+              type="button"
               class="copy-btn"
-              onclick="copyText('password', this)">
-
+              onclick="copyText('password', this)"
+            >
               Copy
-
             </button>
 
           </div>
 
         </div>
 
+
+        <!-- SUCCESS MESSAGE -->
+
         <div
           class="success"
-          id="success">
-
+          id="success"
+        >
           ✓ Copied to clipboard
-
         </div>
 
       </div>
 
-    </div>
+    </section>
 
-    <div class="footer">
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
       Complete the task to access your key.
-    </div>
+    </footer>
 
-  </div>
+  </main>
+
 
   <script>
+
+    /* =========================
+       OPEN YOUTUBE
+    ========================== */
 
     function openYouTube() {
 
@@ -488,50 +698,134 @@
         "_blank"
       );
 
-      setTimeout(function() {
+      setTimeout(function () {
 
-        document.getElementById("subscribeTask").style.display = "none";
+        document.getElementById(
+          "subscribeTask"
+        ).style.display = "none";
 
-        document.getElementById("unlockTask").style.display = "block";
+        document.getElementById(
+          "unlockTask"
+        ).style.display = "block";
 
       }, 1000);
-
     }
+
+
+    /* =========================
+       UNLOCK KEY
+    ========================== */
 
     function unlockKey() {
 
-      document.getElementById("credentials").style.display = "block";
+      document.getElementById(
+        "credentials"
+      ).style.display = "block";
 
     }
 
+
+    /* =========================
+       COPY CREDENTIAL
+    ========================== */
+
     function copyText(id, button) {
 
+      const element =
+        document.getElementById(id);
+
       const text =
-        document.getElementById(id).innerText.trim();
+        element.innerText.trim();
 
-      navigator.clipboard.writeText(text).then(function() {
+      if (
+        navigator.clipboard &&
+        window.isSecureContext
+      ) {
 
-        const oldText = button.innerText;
+        navigator.clipboard
+          .writeText(text)
+          .then(function () {
 
-        button.innerText = "✓ Copied";
+            showCopied(button);
 
-        document.getElementById("success").style.display = "block";
+          })
+          .catch(function () {
 
-        setTimeout(function() {
+            fallbackCopy(text, button);
 
-          button.innerText = oldText;
+          });
 
-          document.getElementById("success").style.display = "none";
+      } else {
 
-        }, 1800);
+        fallbackCopy(text, button);
 
-      });
+      }
+    }
 
+
+    /* =========================
+       FALLBACK COPY
+    ========================== */
+
+    function fallbackCopy(text, button) {
+
+      const textarea =
+        document.createElement("textarea");
+
+      textarea.value = text;
+
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+
+      document.body.appendChild(textarea);
+
+      textarea.select();
+
+      try {
+
+        document.execCommand("copy");
+
+        showCopied(button);
+
+      } catch (error) {
+
+        alert("Copy failed. Please copy manually.");
+
+      }
+
+      document.body.removeChild(textarea);
+    }
+
+
+    /* =========================
+       COPIED MESSAGE
+    ========================== */
+
+    function showCopied(button) {
+
+      const oldText =
+        button.innerText;
+
+      button.innerText =
+        "✓ Copied";
+
+      document.getElementById(
+        "success"
+      ).style.display = "block";
+
+      setTimeout(function () {
+
+        button.innerText =
+          oldText;
+
+        document.getElementById(
+          "success"
+        ).style.display = "none";
+
+      }, 1800);
     }
 
   </script>
 
 </body>
 </html>
-
-Isko apni GitHub repository ke "index.html" mein paste karke Commit changes kar do. GitHub Pages update hone ke baad naye credentials show honge.
